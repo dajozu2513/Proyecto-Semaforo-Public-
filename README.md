@@ -1,69 +1,69 @@
-# Proyecto Semáforo — Filósofos Comelones Concurrentes
+# Traffic Light Project — Concurrent Dining Philosophers
 
-Simulación concurrente del problema clásico de los Filósofos Comelones en C++17, con tres estrategias anti-deadlock implementadas mediante el patrón Strategy. Desarrollado para el curso de Sistemas Operativos.
+Concurrent simulation of the classic Dining Philosophers problem in C++17, featuring three anti-deadlock strategies implemented using the Strategy pattern. Developed for the Operating Systems course.
 
 ---
 
-## Tecnologías
+## Technologies
 
 - **C++17**
 - **std::thread**, **std::mutex**, **std::condition_variable**
 - **Visual Studio 2022**
 
-## Compilar y ejecutar
+## Build and Run
 
-1. Abrir `Proyecto-Semaforo.sln` en Visual Studio 2022
-2. Compilar: `Ctrl + Shift + B`
-3. Ejecutar: `Ctrl + F5`
-4. Seleccionar estrategia en consola (1, 2 o 3)
+1. Open `Proyecto-Semaforo.sln` in Visual Studio 2022
+2. Build: `Ctrl + Shift + B`
+3. Run: `Ctrl + F5`
+4. Select a strategy from the console (1, 2, or 3)
 
-## Estrategias disponibles
+## Available Strategies
 
-| Opción | Estrategia | Mecanismo |
+| Option | Strategy | Mechanism |
 |---|---|---|
-| 1 | Sin interbloqueo | `std::lock` — adquiere ambos tenedores atómicamente |
-| 2 | Asimétrica | Filósofos pares: derecho→izquierdo; impares: izquierdo→derecho |
-| 3 | Mesero (Waiter) | Semáforo central limita a N−1 filósofos comiendo simultáneamente |
+| 1 | Deadlock-free | `std::lock` — acquires both forks atomically |
+| 2 | Asymmetric | Even philosophers: right→left; odd philosophers: left→right |
+| 3 | Waiter | Central semaphore limits to N−1 philosophers eating simultaneously |
 
-## Ciclo de vida de un filósofo
+## Philosopher Lifecycle
 
 ```
-pensando → programando → hambriento → comiendo → pensando
+thinking → scheduling → hungry → eating → thinking
 ```
 
-## Arquitectura
+## Architecture
 
-| Componente | Rol |
+| Component | Role |
 |---|---|
-| `Philosopher` | Hilo concurrente; ciclo de vida completo |
-| `Fork` | Recurso compartido protegido con `std::mutex` |
-| `Strategy` | Interfaz base (patrón Strategy) |
-| `NoDeadlockStrategy` | Implementa `std::lock` |
-| `AsymmetricStrategy` | Orden asimétrico de adquisición |
-| `Waiter` / `WaiterStrategy` | Control centralizado con `condition_variable` |
-| `Logger` | Registro sincronizado con colores ANSI por estado |
-| `Metrics` | Registra tiempos y frecuencias; exporta CSV |
+| `Philosopher` | Concurrent thread; full lifecycle |
+| `Fork` | Shared resource protected with `std::mutex` |
+| `Strategy` | Base interface (Strategy pattern) |
+| `NoDeadlockStrategy` | Implements `std::lock` |
+| `AsymmetricStrategy` | Asymmetric acquisition order |
+| `Waiter` / `WaiterStrategy` | Centralized control with `condition_variable` |
+| `Logger` | Synchronized logging with ANSI colors per state |
+| `Metrics` | Records timings and frequencies; exports CSV |
 
-## Salida en consola (colores por estado)
+## Console Output (colors by state)
 
-| Estado | Color |
+| State | Color |
 |---|---|
-| pensando | Fucsia |
-| programando | Azul |
-| hambriento | Rojo |
-| comiendo | Verde |
+| thinking | Magenta |
+| scheduling | Blue |
+| hungry | Red |
+| eating | Green |
 
-## Métricas
+## Metrics
 
-Cada ejecución genera `resultados.csv` con columnas:
+Each run generates `resultados.csv` with columns:
 
 ```
-id | estado | timestamp | duracion_ms
+id | state | timestamp | duration_ms
 ```
 
-Los datos permiten comparar tiempo promedio por estado, frecuencia de comidas y concurrencia efectiva entre estrategias.
+The data allows comparing average time per state, eating frequency, and effective concurrency across strategies.
 
 ---
 
-Desarrollado por **David Joel Soto Zuñiga** y **Jeimy Espinoza Barquero**
-Curso: Sistemas Operativos — Universidad Nacional de Costa Rica, 2025
+Developed by **David Joel Soto Zuñiga** and **Jeimy Espinoza Barquero**
+Course: Operating Systems — Universidad Nacional de Costa Rica, 2025
