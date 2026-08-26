@@ -65,5 +65,5 @@ The data allows comparing average time per state, eating frequency, and effectiv
 
 ---
 
-Developed by **David Joel Soto Zuñiga** and **Jeimy Espinoza Barquero**
-Course: Operating Systems — Universidad Nacional de Costa Rica, 2025
+Developed by **David Joel Soto Zuñiga**
+Course: Operating Systems — Universidad Nacional de Costa Rica
